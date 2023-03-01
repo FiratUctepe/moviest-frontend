@@ -14,6 +14,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
 
     useEffect(()=>{
         getMovieData(movieId);
+
     },[])
 
     const addReview = async (e) =>{
@@ -23,7 +24,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
 
         try
         {
-            const response = await axios.post("/api/v1/movies/reviews",{reviewBody:rev.value,imdbId:movieId});
+            const response = await axios.post("http://localhost:8080/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
 
             const updatedReviews = [...reviews, {body:rev.value}];
     
@@ -33,12 +34,8 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         }
         catch(err)
         {
-            console.error(err);
+            console.log(err);
         }
-        
-
-
-
     }
 
   return (
@@ -66,11 +63,11 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     </>
                 }
                 {
-                    reviews?.map((r) => {
+                    reviews?.map((review) => {
                         return(
-                            <>
+                            < >
                                 <Row>
-                                    <Col>{r.body}</Col>
+                                    <Col>{review.body}</Col>
                                 </Row>
                                 <Row>
                                     <Col>
